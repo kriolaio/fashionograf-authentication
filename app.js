@@ -14,6 +14,6 @@ sequelize
     console.error("Unable to connect to the database:", err);
   });
 
-app.get("/signup", (req, res) => res.send("Hello World!"));
+app.get("/signup", (req, res) => res.json({ foo: "bar" }));
 
 app.listen(PORT, () => console.log(`Example app listening on port ${PORT}!`));

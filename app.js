@@ -1,4 +1,9 @@
+const express = require("express");
 const sequelize = require("./db");
+
+const { PORT } = process.env;
+
+const app = express();
 
 sequelize
   .authenticate()
@@ -8,3 +13,7 @@ sequelize
   .catch(err => {
     console.error("Unable to connect to the database:", err);
   });
+
+app.get("/signup", (req, res) => res.send("Hello World!"));
+
+app.listen(PORT, () => console.log(`Example app listening on port ${PORT}!`));

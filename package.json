@@ -5,7 +5,8 @@
   "main": "app.js",
   "scripts": {
     "precommit": "pretty-quick --staged",
-    "start": "node app.js"
+    "start": "node app.js",
+    "start:development": "node -r dotenv/config app.js"
   },
   "repository": {
     "type": "git",
@@ -18,6 +19,7 @@
   },
   "homepage": "https://github.com/kriolaio/fashionograf-authentication#readme",
   "dependencies": {
+    "dotenv": "^6.0.0",
     "pg": "^7.4.3",
     "pg-hstore": "^2.3.2",
     "sequelize": "^4.39.0"

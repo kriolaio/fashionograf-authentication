@@ -1,0 +1,20 @@
+apiVersion: apps/v1beta1
+kind: Deployment
+metadata:
+  name: fashionograf-authentication-deployment
+spec:
+  replicas: 2
+  template:
+    metadata:
+      name: fashionograf-authentication
+      labels:
+        app: fashionograf-authentication
+    spec:
+      containers:
+        - image: kriola/fashionograf-authentication:bdc22e3
+          name: fashionograf-authentication-container
+          envFrom:
+            - configMapRef:
+                name: authentication-config
+          ports:
+            - containerPort: 80

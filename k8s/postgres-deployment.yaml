@@ -1,0 +1,26 @@
+apiVersion: extensions/v1beta1
+kind: Deployment
+metadata:
+  name: authentication-postgres-deployment
+spec:
+  template:
+    metadata:
+      labels:
+        app: authentication-postgres
+    spec:
+      containers:
+        - image: "postgres:10.5"
+          name: postgres
+          envFrom:
+            - configMapRef:
+                name: authentication-postgres-config
+          ports:
+            - containerPort: 5432
+              name: postgres
+          volumeMounts:
+            - name: authentication-storage
+              mountPath: /var/lib/postgresql/data
+      volumes:
+        - name: authentication-storage
+          persistentVolumeClaim:
+            claimName: authentication-pvc

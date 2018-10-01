@@ -1,0 +1,39 @@
+{
+  "name": "fashionograf-authentication",
+  "version": "1.0.0",
+  "description": "Fashionograf Autentication Microservice",
+  "main": "app.js",
+  "scripts": {
+    "precommit": "pretty-quick --staged",
+    "start": "node app.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/kriolaio/fashionograf-authentication.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/kriolaio/fashionograf-authentication/issues"
+  },
+  "homepage": "https://github.com/kriolaio/fashionograf-authentication#readme",
+  "dependencies": {
+    "pg": "^7.4.3",
+    "pg-hstore": "^2.3.2",
+    "sequelize": "^4.39.0"
+  },
+  "devDependencies": {
+    "babel-eslint": "^10.0.1",
+    "eslint": "^5.6.1",
+    "eslint-config-airbnb-base": "^13.1.0",
+    "eslint-config-prettier": "^3.1.0",
+    "eslint-plugin-flowtype": "^2.50.3",
+    "eslint-plugin-import": "^2.14.0",
+    "eslint-plugin-prettier": "^3.0.0",
+    "husky": "^1.0.1",
+    "jest": "^23.6.0",
+    "lint-staged": "^7.3.0",
+    "prettier": "^1.14.3",
+    "pretty-quick": "^1.7.0"
+  }
+}

@@ -3,7 +3,7 @@ kind: Deployment
 metadata:
   name: fashionograf-authentication-deployment
 spec:
-  replicas: 2
+  replicas: 1
   template:
     metadata:
       name: fashionograf-authentication
@@ -11,10 +11,10 @@ spec:
         app: fashionograf-authentication
     spec:
       containers:
-        - image: kriola/fashionograf-authentication:bdc22e3
+        - image: kriola/fashionograf-authentication:8a9f932
           name: fashionograf-authentication-container
           envFrom:
             - configMapRef:
                 name: authentication-config
           ports:
-            - containerPort: 80
+            - containerPort: 3000

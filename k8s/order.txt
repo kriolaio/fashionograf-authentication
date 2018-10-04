@@ -1,0 +1,7 @@
+1- postgres-pvc.yaml
+2- postgres-config.yaml
+3- postgres-deployment.yaml
+4- postgres-service.yaml
+5- authentication-config.yaml
+6- authentication-deployment.yaml
+7- authentication-service.yaml

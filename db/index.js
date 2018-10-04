@@ -1,22 +1,27 @@
-const Sequelize = require("sequelize");
+const mongoose = require("mongoose");
 
 const {
-  POSTGRES_DB,
-  POSTGRES_USER,
-  POSTGRES_PASSWORD,
-  POSTGRES_URL
+  MONGO_USER,
+  MONGO_PASSWORD,
+  MONGO_DB,
+  MONGO_URL,
+  MONGO_PORT
 } = process.env;
 
-const sequelize = new Sequelize(POSTGRES_DB, POSTGRES_USER, POSTGRES_PASSWORD, {
-  host: POSTGRES_URL,
-  dialect: "postgres",
-  operatorsAliases: false,
-  pool: {
-    max: 5,
-    min: 0,
-    acquire: 30000,
-    idle: 10000
-  }
+const connectionStr = `mongodb://${MONGO_USER}:${MONGO_PASSWORD}@${MONGO_URL}:${MONGO_PORT}/${MONGO_DB}`;
+const connectionOpt = { useNewUrlParser: true, useCreateIndex: true };
+mongoose.connect(
+  connectionStr,
+  connectionOpt
+);
+mongoose.Promise = global.Promise;
+
+mongoose.connection.on("error", err => {
+  console.log("Could not connect to mongo server!");
+  console.log(err);
+});
+mongoose.connection.once("open", () => {
+  console.log("Connected to mongo server.");
 });
 
-module.exports = sequelize;
+module.exports = mongoose;

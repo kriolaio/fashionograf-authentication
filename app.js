@@ -1,19 +1,33 @@
 const express = require("express");
-const sequelize = require("./db");
+const mongoose = require("./db");
+const router = require("./middlewares/router");
 
-const { PORT } = process.env;
+const { PORT, APP_ROOT } = process.env;
 
 const app = express();
 
-sequelize
-  .authenticate()
-  .then(() => {
-    console.log("Connection has been established successfully.");
-  })
-  .catch(err => {
-    console.error("Unable to connect to the database:", err);
+app.use(APP_ROOT, router);
+
+const server = app.listen(PORT, () =>
+  console.log(`Authentication app is listening on port ${PORT}!`)
+);
+
+const shutDown = () => {
+  console.log("server closing");
+  server.close(() => {
+    console.log("server closed.");
+    // boolean means [force], see in mongoose doc
+    console.log("db connection closing.");
+    mongoose.connection.close(false, () => {
+      console.log("db connection closed.");
+      process.exit(0);
+    });
   });
+};
 
-app.get("/signup", (req, res) => res.json({ foo: "bar" }));
-
-app.listen(PORT, () => console.log(`Example app listening on port ${PORT}!`));
+process.on("SIGTERM", () => {
+  shutDown();
+});
+process.on("SIGINT", () => {
+  shutDown();
+});

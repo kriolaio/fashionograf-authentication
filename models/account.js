@@ -6,7 +6,7 @@ const uuidv1 = require("uuid/v1");
 
 const { Schema } = mongoose;
 
-const userSchema = new Schema({
+const accountSchema = new Schema({
   email: {
     type: String,
     unique: true,
@@ -15,36 +15,37 @@ const userSchema = new Schema({
   },
   password: {
     type: String,
-    required: true
+    required: true,
+    select: false
   },
   accountID: {
     type: String
   },
-  createdDate: Date,
-  modifiedDate: Date
+  createdDate: { type: Date, select: false },
+  modifiedDate: { type: Date, select: false }
 });
 
 // Hooks
 
-userSchema.pre("save", function save(next) {
-  const user = this;
+accountSchema.pre("save", function save(next) {
+  const account = this;
   const transactionTime = moment.utc();
-  if (user.isNew) {
-    user.createdDate = transactionTime;
-    user.accountID = uuidv1();
+  if (account.isNew) {
+    account.createdDate = transactionTime;
+    account.accountID = uuidv1();
   }
-  user.modifiedDate = transactionTime;
-  if (user.isModified("password")) {
+  account.modifiedDate = transactionTime;
+  if (account.isModified("password")) {
     const saltRound = 10;
     bcrypt.genSalt(saltRound, (err0, salt) => {
       if (err0) {
         return next(err0);
       }
-      return bcrypt.hash(user.password, salt, (err1, hash) => {
+      return bcrypt.hash(account.password, salt, (err1, hash) => {
         if (err1) {
           return next(err1);
         }
-        user.password = hash;
+        account.password = hash;
         return next();
       });
     });
@@ -55,7 +56,7 @@ userSchema.pre("save", function save(next) {
 
 // Instance methods
 
-userSchema.methods.comparePassword = function comparePassword(
+accountSchema.methods.comparePassword = function comparePassword(
   candidatePassword,
   callback
 ) {
@@ -67,19 +68,19 @@ userSchema.methods.comparePassword = function comparePassword(
   });
 };
 
-userSchema.methods.updateEmail = function updateEmail(email) {
+accountSchema.methods.updateEmail = function updateEmail(email) {
   if (!email) {
     throw new createError.BadRequest();
   }
   this.email = email;
 };
-userSchema.methods.updatePassword = function updatePassword(password) {
+accountSchema.methods.updatePassword = function updatePassword(password) {
   if (!password) {
     throw new createError.BadRequest();
   }
   this.password = password;
 };
 
-const UserModel = mongoose.model("User", userSchema);
+const AccountModel = mongoose.model("Account", accountSchema);
 
-module.exports = UserModel;
+module.exports = AccountModel;

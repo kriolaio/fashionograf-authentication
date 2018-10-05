@@ -1,16 +1,16 @@
 const jwt = require("jwt-simple");
 const moment = require("moment");
 
-const User = require("../models/user");
+const Account = require("../models/account");
 
 const { APP_SECRET } = process.env;
 
-const tokenForUser = user => {
+const tokenForAccount = account => {
   const payload = {
-    account_id: user.accountID,
+    account_id: account.accountID,
     iat: moment().unix(),
     exp: moment()
-      .add(5, "days")
+      .add(10, "days")
       .unix()
   };
   return jwt.encode(payload, APP_SECRET);
@@ -19,22 +19,22 @@ const tokenForUser = user => {
 const signup = async (req, res, next) => {
   const { email, password } = req.body;
   try {
-    // See if a user with the given email exists
-    const existingUser = await User.findOne({
+    // See if a account with the given email exists
+    const existingAccount = await Account.findOne({
       email: email.toLowerCase()
     }).exec();
-    // If a user with email does exits, return an error
-    if (existingUser) {
+    // If a account with email does exits, return an error
+    if (existingAccount) {
       return res.status(422).send({
         error: "Email is in use"
       });
     }
-    const newUser = await User.create({
+    const newAccount = await Account.create({
       email,
       password
     });
     return res.json({
-      token: tokenForUser(newUser)
+      token: tokenForAccount(newAccount)
     });
   } catch (err) {
     return next(err);
@@ -42,11 +42,11 @@ const signup = async (req, res, next) => {
 };
 
 const signin = (req, res, next) => {
-  // User has already had their email and password auth'd
+  // Account has already had their email and password auth'd
   // we just need to give them a token
   try {
     return res.json({
-      token: tokenForUser(req.user)
+      token: tokenForAccount(req.user)
     });
   } catch (err) {
     return next(err);

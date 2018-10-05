@@ -1,14 +1,16 @@
-const controller = require("../controller/token");
 const { validateToken } = require("../middlewares/validation/token");
 const jwtAuthentication = require("../middlewares/jwt-authentication");
 
-const userApi = appRouter => {
+const tokenApi = appRouter => {
   appRouter.get(
-    "/token/accountid",
+    "/token/account",
     validateToken,
     jwtAuthentication,
-    controller.getAccountID
+    (req, res) =>
+      res.json({
+        account: req.user
+      })
   );
 };
 
-module.exports = userApi;
+module.exports = tokenApi;

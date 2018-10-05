@@ -1,25 +1,25 @@
 apiVersion: extensions/v1beta1
 kind: Deployment
 metadata:
-  name: authentication-postgres-deployment
+  name: authentication-mongo-deployment
 spec:
   template:
     metadata:
       labels:
-        app: authentication-postgres
+        app: authentication-mongo
     spec:
       containers:
-        - image: "postgres:10.5"
-          name: postgres
+        - image: "mongo:4.0.3"
+          name: mongo
           envFrom:
             - configMapRef:
-                name: authentication-postgres-config
+                name: authentication-mongo-config
           ports:
-            - containerPort: 5432
-              name: postgres
+            - containerPort: 27017
+              name: mongo
           volumeMounts:
             - name: authentication-storage
-              mountPath: /var/lib/postgresql/data
+              mountPath: /data/db
       volumes:
         - name: authentication-storage
           persistentVolumeClaim:

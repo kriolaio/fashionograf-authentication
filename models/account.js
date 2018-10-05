@@ -60,9 +60,6 @@ accountSchema.methods.comparePassword = function comparePassword(
   candidatePassword,
   callback
 ) {
-  console.log(candidatePassword);
-  console.log(this.password);
-
   bcrypt.compare(candidatePassword, this.password, (err, isMatch) => {
     if (err) {
       return callback(err);

@@ -11,7 +11,7 @@ spec:
         app: fashionograf-authentication
     spec:
       containers:
-        - image: kriola/fashionograf-authentication:8a9f932
+        - image: kriola/fashionograf-authentication:e691e02
           name: fashionograf-authentication-container
           envFrom:
             - configMapRef:

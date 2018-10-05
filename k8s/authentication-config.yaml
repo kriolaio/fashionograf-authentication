@@ -3,9 +3,12 @@ kind: ConfigMap
 metadata:
   name: authentication-config
 data:
-  POSTGRES_USER: admin
-  POSTGRES_PASSWORD: admin
-  POSTGRES_DB: db
-  POSTGRES_URL: authentication-postgres-service
+  MONGO_USER: admin
+  MONGO_PASSWORD: admin
+  MONGO_DB: db
+  MONGO_URL: authentication-mongo-service
+  MONGO_PORT: "27017"
   NODE_ENV: production
   PORT: "3000"
+  APP_SECRET: secret123secret
+  APP_ROOT: ""

@@ -4,7 +4,7 @@ const jwtAuthentication = require("../middlewares/jwt-authentication");
 
 const userApi = appRouter => {
   appRouter.get(
-    "/token/accountID",
+    "/token/accountid",
     validateToken,
     jwtAuthentication,
     controller.getAccountID

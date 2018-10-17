@@ -6,7 +6,7 @@
   "scripts": {
     "precommit": "pretty-quick --staged",
     "start": "node app.js",
-    "start:development": "node -r dotenv/config app.js"
+    "start:dev": "node -r dotenv/config app.js"
   },
   "repository": {
     "type": "git",
@@ -31,6 +31,7 @@
     "passport": "^0.4.0",
     "passport-jwt": "^4.0.0",
     "passport-local": "^1.0.0",
+    "underscore": "^1.9.1",
     "uuid": "^3.3.2"
   },
   "devDependencies": {

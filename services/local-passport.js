@@ -1,5 +1,5 @@
 const LocalStrategy = require("passport-local");
-const Account = require("../models/account");
+const Account = require("../schemas/account");
 
 const localOptions = {
   usernameField: "email",
@@ -15,9 +15,7 @@ const localLogin = new LocalStrategy(
     try {
       const existingAccount = await Account.findOne({
         email
-      })
-        .select("+password")
-        .exec();
+      }).exec();
       if (existingAccount) {
         // Return done(null, existingAccount);
         existingAccount.comparePassword(password, async (err, isMatch) => {

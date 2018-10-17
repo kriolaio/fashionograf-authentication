@@ -1,14 +1,11 @@
 apiVersion: v1
 kind: ConfigMap
 metadata:
-  name: authentication-config
+  name: authentication
 data:
-  MONGO_USER: admin
-  MONGO_PASSWORD: admin
   MONGO_DB: db
-  MONGO_URL: authentication-mongo-service
+  MONGO_URL: authentication-mongo
   MONGO_PORT: "27017"
   NODE_ENV: production
   PORT: "3000"
-  APP_SECRET: secret123secret
   APP_ROOT: ""

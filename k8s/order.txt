@@ -1,7 +1,9 @@
-1- postgres-pvc.yaml
-2- postgres-config.yaml
-3- postgres-deployment.yaml
-4- postgres-service.yaml
-5- authentication-config.yaml
-6- authentication-deployment.yaml
-7- authentication-service.yaml
+1- mongo-pvc.yaml
+2- mongo-config.yaml
+3- mongo-secret.yaml
+4- mongo-deployment.yaml
+5- mongo-service.yaml
+6- authentication-config.yaml
+7- authentication-secret.yaml
+8- authentication-deployment.yaml
+9- authentication-service.yaml

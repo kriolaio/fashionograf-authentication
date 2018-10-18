@@ -1,7 +1,7 @@
 const jwt = require("jwt-simple");
 const moment = require("moment");
 
-const Account = require("../models/account");
+const Account = require("../schemas/account");
 
 const { APP_SECRET } = process.env;
 
